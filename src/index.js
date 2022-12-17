@@ -32,7 +32,7 @@ const predictPoint = () => {
     x += l.length * cos(l.targetAngle ? l.targetAngle : 0);
     y += l.length * sin(l.targetAngle ? l.targetAngle : 0);
   });
-  return { x: roundOff(x, 2), y: roundOff(y, 2) };
+  return { x, y };
 };
 
 const reset = () => {

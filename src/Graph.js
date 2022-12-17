@@ -1,3 +1,5 @@
+import { roundOff } from "./helpers";
+
 export default class Graph {
   constructor(width, height, unitLength) {
     this.unitLength = unitLength;
@@ -26,22 +28,12 @@ export default class Graph {
       );
       noStroke();
       textSize(16);
-      this.temp = text(
-        `Prediction: (x, y) = (${this.predictedPoint.x}, ${
-          -1 * this.predictedPoint.y
-        })`,
-        10,
-        26
-      );
-      console.log(this.temp.textWidth());
-      this.container = rect(7, 7, 250, 30);
-      this.text = text(
-        `Prediction: (x, y) = (${this.predictedPoint.x}, ${
-          -1 * this.predictedPoint.y
-        })`,
-        10,
-        26
-      );
+      let textContent = `End-effector Position: (x, y) = (${roundOff(
+        this.predictedPoint.x / 30,
+        2
+      )}, ${roundOff((-1 * this.predictedPoint.y) / 30, 2)})`;
+      this.container = rect(7, 7, textWidth(textContent) + 10, 30);
+      this.text = text(textContent, 10, 26);
     }
     noStroke();
   }
