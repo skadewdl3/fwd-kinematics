@@ -1,4 +1,5 @@
 import { roundOff } from "./helpers";
+import { LINK_LENGTH } from "./config";
 
 export default class Graph {
   constructor(width, height, unitLength) {
@@ -10,14 +11,27 @@ export default class Graph {
     this.predictedPoint = null;
   }
   render() {
-    strokeWeight(0.3);
-    stroke(45, 52, 54);
-
     for (let i = 1; i <= this.rowCount; i++) {
+      if (i === Math.ceil(this.rowCount / 2)) {
+        strokeWeight(0.7);
+        stroke(0, 0, 0);
+      } else {
+        strokeWeight(0.3);
+        stroke(45, 52, 54);
+      }
       line(this.unitLength * i, 0, this.unitLength * i, this.height);
+      noStroke();
     }
     for (let i = 1; i <= this.colCount; i++) {
+      if (i === Math.ceil(this.colCount / 2)) {
+        strokeWeight(0.7);
+        stroke(0, 0, 0);
+      } else {
+        strokeWeight(0.3);
+        stroke(45, 52, 54);
+      }
       line(0, this.unitLength * i, this.width, this.unitLength * i);
+      noStroke();
     }
     if (this.predictedPoint !== null) {
       stroke(255, 0, 0);
@@ -29,9 +43,9 @@ export default class Graph {
       noStroke();
       textSize(16);
       let textContent = `End-effector Position: (x, y) = (${roundOff(
-        this.predictedPoint.x / 30,
+        this.predictedPoint.x / LINK_LENGTH,
         2
-      )}, ${roundOff((-1 * this.predictedPoint.y) / 30, 2)})`;
+      )}, ${roundOff((-1 * this.predictedPoint.y) / LINK_LENGTH, 2)})`;
       this.container = rect(7, 7, textWidth(textContent) + 10, 30);
       this.text = text(textContent, 10, 26);
     }

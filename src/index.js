@@ -2,7 +2,6 @@ import { sketch } from "p5js-wrapper";
 import Link from "./Link.js";
 import Graph from "./Graph.js";
 import { HEIGHT, WIDTH, LINK_LENGTH } from "./config.js";
-import { roundOff } from "./helpers.js";
 
 let links = [];
 let rotate = false;
@@ -17,12 +16,19 @@ const removeLink = (index) => {
     if (i !== 0) {
       l.setParent(updated[i - 1]);
     }
+    if (index === 0 && i === 0) {
+      l.setParent(null);
+      l.a = createVector(WIDTH / 2, HEIGHT / 2);
+      l.calculateB();
+    }
     l.setIndex(i);
     l.createControls();
+    l.setLinkCount(updated.length);
 
     return l;
   });
   links = newLinks;
+  graph.setPredictedPoint(predictPoint());
 };
 
 const predictPoint = () => {
@@ -42,6 +48,21 @@ const reset = () => {
   document.dispatchEvent(event);
 };
 
+const addLinkElement = () => {
+  let link = new Link(
+    links.length === 0 ? { x: WIDTH / 2, y: HEIGHT / 2 } : null,
+    LINK_LENGTH,
+    0,
+    links.length === 0 ? null : links[links.length - 1],
+    links.length,
+    removeLink
+  );
+  links.push(link);
+  links.forEach((l) => {
+    l.setLinkCount(links.length);
+  });
+};
+
 function setup() {
   createCanvas(WIDTH, HEIGHT);
   angleMode(DEGREES);
@@ -58,17 +79,7 @@ function setup() {
   let stop = createButton("Stop");
   let addLink = createButton("Add Link");
   let resetBtn = createButton("Reset");
-  addLink.mousePressed(() => {
-    let link = new Link(
-      links.length === 0 ? { x: WIDTH / 2, y: HEIGHT / 2 } : null,
-      LINK_LENGTH,
-      0,
-      links.length === 0 ? null : links[links.length - 1],
-      links.length,
-      removeLink
-    );
-    links.push(link);
-  });
+  addLink.mousePressed(addLinkElement);
   start.mousePressed(() => (rotate = true));
   stop.mousePressed(() => (rotate = false));
   resetBtn.mousePressed(reset);
