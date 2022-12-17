@@ -36,6 +36,7 @@ const predictPoint = () => {
 };
 
 const reset = () => {
+  links.forEach((l) => l.controls.remove());
   links = [];
   let event = new Event("clearPrediction");
   document.dispatchEvent(event);

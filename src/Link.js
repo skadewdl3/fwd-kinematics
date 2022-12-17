@@ -1,3 +1,5 @@
+import { SPEED } from "./config";
+
 export default class Link {
   constructor(a, length, angle, parent, index, removeLink) {
     this.length = length;
@@ -41,8 +43,8 @@ export default class Link {
   }
 
   rotate() {
-    if (this.angle > this.targetAngle) this.angle -= 0.5;
-    if (this.angle < this.targetAngle) this.angle += 0.5;
+    if (this.angle > this.targetAngle) this.angle -= SPEED;
+    if (this.angle < this.targetAngle) this.angle += SPEED;
     this.calculateA();
     this.calculateB();
   }

@@ -25,8 +25,16 @@ export default class Graph {
         this.predictedPoint.y + this.height / 2
       );
       noStroke();
-      this.container = rect(7, 7, 250, 30);
       textSize(16);
+      this.temp = text(
+        `Prediction: (x, y) = (${this.predictedPoint.x}, ${
+          -1 * this.predictedPoint.y
+        })`,
+        10,
+        26
+      );
+      console.log(this.temp.textWidth());
+      this.container = rect(7, 7, 250, 30);
       this.text = text(
         `Prediction: (x, y) = (${this.predictedPoint.x}, ${
           -1 * this.predictedPoint.y
@@ -39,9 +47,7 @@ export default class Graph {
   }
   clearPrediction() {
     if (this.point && this.text && this.container) {
-      this.point.remove();
-      this.text.remove();
-      this.container.remove();
+      this.predictedPoint = null;
     }
   }
   setPredictedPoint(point) {
