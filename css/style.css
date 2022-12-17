@@ -1,5 +1,36 @@
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 10px;
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+
+main {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 5rem;
+}
+
+body button {
+  margin-bottom: 0.1rem;
+  padding: 0.5rem 1rem;
+  border: solid 0.1rem #ccc;
+  background: #eee;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;  
+}
+
+body div {
+  margin-top: 1rem;
+}
+
+body div div {
+  margin-top: 0;
+}
+
+body div div p {
+  font-size: 1rem;
 }
